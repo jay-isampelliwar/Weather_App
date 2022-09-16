@@ -10,7 +10,7 @@ class CustomAppBar extends StatelessWidget {
     return Container(
       height: 100,
       decoration: BoxDecoration(
-        color: primeColor,
+        color: Colors.grey.withOpacity(0.8),
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(40),
           bottomRight: Radius.circular(40),
@@ -27,7 +27,7 @@ class CustomAppBar extends StatelessWidget {
                 "Weather app",
                 style: TextStyle(
                   fontSize: 32,
-                  color: whiteCon,
+                  color: blackCon,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -39,17 +39,13 @@ class CustomAppBar extends StatelessWidget {
                   height: 50,
                   width: 50,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: bgColor,
-                    border: Border.all(
-                      width: 2,
-                      color: secondColor,
-                    ),
-                  ),
+                      borderRadius: BorderRadius.circular(12),
+                      color: whiteCon,
+                      border: Border.all(width: 1, color: blackCon)),
                   child: Icon(
                     Icons.search,
                     size: 28,
-                    color: Colors.grey.shade300.withOpacity(0.5),
+                    color: blackCon,
                   ),
                 ),
               )

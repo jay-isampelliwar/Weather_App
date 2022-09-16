@@ -3,10 +3,11 @@ import '../model/weather_model.dart';
 import '../provider/weather_provider.dart';
 
 class WeatherAPI {
+  static String key = "87e36f98092a2cafea2428b8efcf42f8";
   static Future<void> getData(WeatherProvider? provider, String city) async {
     var client = http.Client();
     var uri = Uri.parse(
-        "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=87e36f98092a2cafea2428b8efcf42f8&units=metric");
+        "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$key&units=metric");
 
     var res = await client.get(uri);
 

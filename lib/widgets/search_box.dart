@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/provider/city_list.dart';
+import 'package:weather_app/provider/forecast_provider.dart';
 import 'package:weather_app/provider/history.dart';
+import 'package:weather_app/services/api_call_forecast.dart';
 
 import '../utility/constants.dart';
 import '../provider/weather_provider.dart';
@@ -16,6 +18,7 @@ class SerarchBox extends SearchDelegate {
         icon: Icon(
           Icons.add,
           color: Colors.grey.shade300,
+          size: 28,
         ),
         onPressed: () {
           if (query.isNotEmpty) {
@@ -56,23 +59,28 @@ class SerarchBox extends SearchDelegate {
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
           onTap: () {
-            WeatherProvider provider =
+            WeatherProvider weatherProvider =
                 Provider.of<WeatherProvider>(context, listen: false);
-            provider.setIsLoaded(false);
-            WeatherAPI.getData(provider, matchQuery[index]);
+            ForecastProvider forecastProvider =
+                Provider.of<ForecastProvider>(context, listen: false);
+            weatherProvider.setIsLoaded(false);
+            forecastProvider.setIsLoaded(false);
+            WeatherAPI.getData(weatherProvider, matchQuery[index]);
+            ForecastAPI.getData(forecastProvider, matchQuery[index]);
             historyProivder.addItemInHistory(matchQuery[index]);
+            print(matchQuery[index]);
             close(context, null);
           },
           title: Text(
             matchQuery[index],
             style: TextStyle(
-              color: whiteCon,
+              color: blackCon,
               fontSize: 18,
             ),
           ),
           leading: Icon(
             Icons.location_city,
-            color: whiteCon,
+            color: blackCon,
           ),
         );
       },
@@ -96,24 +104,29 @@ class SerarchBox extends SearchDelegate {
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
                 onTap: () {
-                  WeatherProvider provider =
+                  WeatherProvider weatherProvider =
                       Provider.of<WeatherProvider>(context, listen: false);
-                  provider.setIsLoaded(false);
+                  ForecastProvider forecastProvider =
+                      Provider.of<ForecastProvider>(context, listen: false);
+                  weatherProvider.setIsLoaded(false);
+                  forecastProvider.setIsLoaded(false);
                   WeatherAPI.getData(
-                      provider, historyProivder.getHistory[index]);
+                      weatherProvider, historyProivder.history_list[index]);
+                  ForecastAPI.getData(
+                      forecastProvider, historyProivder.history_list[index]);
                   close(context, null);
                 },
                 title: Text(
                   historyProivder.getHistory[index],
                   style: TextStyle(
-                    color: whiteCon,
+                    color: blackCon,
                     fontSize: 18,
                   ),
                 ),
                 trailing: IconButton(
                   icon: Icon(
                     Icons.delete,
-                    color: whiteCon,
+                    color: blackCon,
                     size: 22,
                   ),
                   onPressed: () {
@@ -122,7 +135,7 @@ class SerarchBox extends SearchDelegate {
                 ),
                 leading: Icon(
                   Icons.history,
-                  color: whiteCon,
+                  color: blackCon,
                 ),
               );
             },
@@ -132,24 +145,28 @@ class SerarchBox extends SearchDelegate {
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
                 onTap: () {
-                  WeatherProvider provider =
+                  WeatherProvider weatherProvider =
                       Provider.of<WeatherProvider>(context, listen: false);
-                  provider.setIsLoaded(false);
-                  WeatherAPI.getData(provider, matchQuery[index]);
+                  ForecastProvider forecastProvider =
+                      Provider.of<ForecastProvider>(context, listen: false);
+                  weatherProvider.setIsLoaded(false);
+                  forecastProvider.setIsLoaded(false);
+                  WeatherAPI.getData(weatherProvider, matchQuery[index]);
+                  ForecastAPI.getData(forecastProvider, matchQuery[index]);
                   historyProivder.addItemInHistory(matchQuery[index]);
-                  // print(matchQuery[index]);
+                  print(matchQuery[index]);
                   close(context, null);
                 },
                 title: Text(
                   matchQuery[index],
                   style: TextStyle(
-                    color: whiteCon,
+                    color: blackCon,
                     fontSize: 18,
                   ),
                 ),
                 leading: Icon(
                   Icons.location_city,
-                  color: whiteCon,
+                  color: blackCon,
                 ),
               );
             },
@@ -160,10 +177,10 @@ class SerarchBox extends SearchDelegate {
   ThemeData appBarTheme(BuildContext context) {
     return ThemeData(
       appBarTheme: AppBarTheme(
-        backgroundColor: primeColor,
+        backgroundColor: blackCon.withOpacity(0.7),
         elevation: 0,
       ),
-      scaffoldBackgroundColor: bgColor,
+      scaffoldBackgroundColor: whiteCon,
       inputDecorationTheme: searchFieldDecorationTheme,
     );
   }

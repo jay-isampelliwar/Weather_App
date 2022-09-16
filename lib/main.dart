@@ -39,12 +39,12 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         // useMaterial3: true,
-        scaffoldBackgroundColor: bgColor,
+        scaffoldBackgroundColor: whiteCon,
         textTheme: TextTheme(
           headline2: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 18,
-            color: whiteCon,
+            color: blackCon,
           ),
           // headline2: GoogleFonts.bebasNeue(color: whiteCon),
         ),
